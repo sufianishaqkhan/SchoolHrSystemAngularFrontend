@@ -1,0 +1,77 @@
+<h1>Employee</h1>
+<button nz-button nzType="primary" (click)="showModal()">Add Employee</button>
+
+<nz-table #basicTable [nzData]="listEmployee">
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>Employee Name</th>
+      <th>Gender</th>
+      <th>School Name</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{data['Employee_Code']}}</td>
+      <td>{{data['Employee_Name']}}</td>
+      <td>{{data['Gender']}}</td>
+      <td>{{data['School_Name']}}</td>
+      <td>
+        <a (click)="showEditModal(data)">Edit</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="DeleteEmployee(data['Employee_ID'])">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<nz-modal [(nzVisible)]="isVisibleModal" nzTitle="Add New Employee" nzOkText="Save" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm()">
+  <ng-container *nzModalContent>
+
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="Employee_Name">Employee Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
+          <input nz-input formControlName="Employee_Name" id="Employee_Name" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="School_ID">Employee School</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
+          <nz-select formControlName="School_ID">
+            <nz-option *ngFor="let school of listSchool" [nzLabel]="school['School_Name']" [nzValue]="school['School_ID']"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="Employee_Code">Employee Code</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
+          <input nz-input formControlName="Employee_Code" id="Employee_Code" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="Gender">Employee Gender</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
+          <nz-select formControlName="Gender">
+            <nz-option nzLabel="Male" nzValue="Male"></nz-option>
+            <nz-option nzLabel="Female" nzValue="Female"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="Address">Employee Address</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
+          <input nz-input formControlName="Address" id="Address" />
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+
+  </ng-container>
+</nz-modal>

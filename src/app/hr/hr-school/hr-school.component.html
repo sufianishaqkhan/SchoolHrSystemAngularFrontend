@@ -1,0 +1,77 @@
+<h1>School</h1>
+<button nz-button nzType="primary" (click)="showModal()">Add New School</button>
+
+<nz-table #basicTable [nzData]="listSchool">
+  <thead>
+    <tr>
+      <th>School SEMIS</th>
+      <th>School Name</th>
+      <th>Total Employees</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{data['School_SEMIS_Code']}}</td>
+      <td>{{data['School_Name']}}</td>
+      <td>{{data['Employees_Count']}}</td>
+      <td>
+        <a (click)="showEditModal(data)">Edit</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="DeleteSchool(data['School_ID'])">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<nz-modal [(nzVisible)]="isVisibleModal" nzTitle="Add New School" nzOkText="Save" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm()">
+  <ng-container *nzModalContent>
+
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="School_Name">School Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
+          <input nz-input formControlName="School_Name" id="School_Name" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="School_SEMIS_Code">School SEMIS</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
+          <input nz-input formControlName="School_SEMIS_Code" id="School_SEMIS_Code" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="School_Level">School Level</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
+          <nz-select formControlName="School_Level">
+            <nz-option nzLabel="Primary" nzValue="Primary"></nz-option>
+            <nz-option nzLabel="Secondary" nzValue="Secondary"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="School_Gender">School Gender</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
+          <nz-select formControlName="School_Gender">
+            <nz-option nzLabel="Boys" nzValue="Boys"></nz-option>
+            <nz-option nzLabel="Girls" nzValue="Girls"></nz-option>
+            <nz-option nzLabel="Mixed" nzValue="Mixed"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="District">School District</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+          <input nz-input formControlName="District" id="District" />
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+
+  </ng-container>
+</nz-modal>
